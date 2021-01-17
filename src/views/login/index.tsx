@@ -6,7 +6,7 @@ export default defineComponent({
     return () => {
       return (
         <>
-          <div>Login</div>
+          <div class="mt-2">Login</div>
         </>
       )
     }
