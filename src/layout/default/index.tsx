@@ -1,10 +1,10 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'App',
+  name: 'Layout',
   setup: () => {
     return () => {
-      return <router-view></router-view>
+      return <div>layout</div>
     }
   }
 })

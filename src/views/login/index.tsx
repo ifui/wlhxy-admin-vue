@@ -1,10 +1,14 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'App',
+  name: 'Login',
   setup: () => {
     return () => {
-      return <router-view></router-view>
+      return (
+        <>
+          <div>Login</div>
+        </>
+      )
     }
   }
 })
