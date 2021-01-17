@@ -1,0 +1,35 @@
+@imgMaxWidth: 45%;
+
+.login {
+  display: flex;
+}
+
+.forgotPassword {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.background {
+  min-width: 20%;
+  max-width: @imgMaxWidth;
+  img {
+    height: 100vh;
+  }
+}
+
+.wrap {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loginForm {
+  width: 360px
+}
