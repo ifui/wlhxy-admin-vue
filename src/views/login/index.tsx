@@ -1,6 +1,7 @@
 import { defineComponent, reactive, ref } from 'vue'
-import classes from './style.module.less'
 import { useStore } from 'vuex'
+import { Login } from '@/api/admin/user'
+import classes from './style.module.less'
 
 export default defineComponent({
   name: 'Login',
@@ -11,11 +12,15 @@ export default defineComponent({
       password: ''
     })
     const rememberMe = ref(true)
+
     function handleLogin() {
       console.log(loginForm)
+      Login(loginForm).then(res => {
+        console.log(res)
+      })
     }
+
     const store = useStore()
-    console.log(store.getters['userinfo/username'])
     return () => {
       return (
         <div class={classes.login}>

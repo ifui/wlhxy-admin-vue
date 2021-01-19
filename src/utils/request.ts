@@ -8,7 +8,7 @@ const service = axios.create({
 })
 
 /**
- * 响应拦截器
+ * 请求拦截器
  */
 service.interceptors.request.use(
   config => {
@@ -21,22 +21,23 @@ service.interceptors.request.use(
     return config
   },
   error => {
-    console.error(error) // for debug
     Promise.reject(error)
   }
 )
 
 /**
- * 请求拦截器
+ * 响应拦截器
  */
-service.interceptors.response.use(error => {
-  console.log(error) // for debug
-  const { data } = error
-  if (data && data.message) {
-    const toast = useToast()
-    toast.error(data.message)
+service.interceptors.response.use(
+  response => response.data,
+  error => {
+    const { data } = error.response
+    if (data && data.message) {
+      const toast = useToast()
+      toast.error(data.message)
+    }
+    return Promise.reject(error)
   }
-  return Promise.reject(error)
-})
+)
 
 export default service
