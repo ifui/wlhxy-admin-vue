@@ -1,8 +1,10 @@
 import { createStore } from 'vuex'
+import userinfo from './userinfo'
 
-export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+const store = createStore({
+  modules: {
+    userinfo
+  }
 })
+
+export default store
