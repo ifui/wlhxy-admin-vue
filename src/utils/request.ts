@@ -29,7 +29,7 @@ service.interceptors.request.use(
  * 响应拦截器
  */
 service.interceptors.response.use(
-  response => response.data,
+  response => response,
   error => {
     const { data } = error.response
     if (data && data.message) {

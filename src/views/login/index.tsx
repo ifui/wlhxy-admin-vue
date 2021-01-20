@@ -1,7 +1,21 @@
 import { defineComponent, reactive, ref } from 'vue'
-import { useStore } from 'vuex'
-import { Login } from '@/api/admin/user'
+import { Login, GetUserInfo } from '@/api/admin/user'
+import { useToast } from 'vue-toastification'
 import classes from './style.module.less'
+import { AxiosResponse } from 'axios'
+import Store from '@/utils/store'
+import {
+  setLoginUsername,
+  getLoginUsername,
+  removeLoginUsername
+} from '@/utils/cookies'
+
+// login 请求返回类型
+interface LoginResponse {
+  access_token: string
+  expires_in: number
+  token_type: string
+}
 
 export default defineComponent({
   name: 'Login',
@@ -11,16 +25,47 @@ export default defineComponent({
       username: '',
       password: ''
     })
-    const rememberMe = ref(true)
+    const rememberMe = ref(false)
+    const btnLoading = ref(false)
+    const store = new Store('userinfo')
+    const Toast = useToast()
 
-    function handleLogin() {
-      console.log(loginForm)
-      Login(loginForm).then(res => {
-        console.log(res)
-      })
+    // 判断是否使用：记住我选项
+    const rememberLoginUsername = getLoginUsername()
+    if (rememberLoginUsername) {
+      rememberMe.value = true
+      loginForm.username = rememberLoginUsername
     }
 
-    const store = useStore()
+    async function handleLogin() {
+      btnLoading.value = true
+
+      // 判断是否启用：记住我选项
+      if (rememberMe.value) {
+        setLoginUsername(loginForm.username)
+      } else {
+        removeLoginUsername()
+      }
+
+      await Login(loginForm).then((res: AxiosResponse<LoginResponse>) => {
+        if (res.data.access_token) {
+          // 设置 Token
+          store.dispatch('SetToken', res.data.access_token)
+        } else {
+          Toast.error('登录失败')
+        }
+      })
+
+      await GetUserInfo().then(res => {
+        // 设置用户信息
+        store.dispatch('SetUserInfo', res.data)
+        const username = store.getters('username')
+        Toast.success(`登录成功，欢迎 ${username}`)
+      })
+
+      btnLoading.value = false
+    }
+
     return () => {
       return (
         <div class={classes.login}>
@@ -43,11 +88,17 @@ export default defineComponent({
               </a-form-item>
 
               <a-form-item>
-                <a-checkbox>记住我</a-checkbox>
+                <a-checkbox v-model={[rememberMe.value, 'checked']}>
+                  记住我
+                </a-checkbox>
               </a-form-item>
 
               <a-form-item>
-                <a-button onClick={handleLogin} block>
+                <a-button
+                  loading={btnLoading.value}
+                  onClick={handleLogin}
+                  block
+                >
                   登 录
                 </a-button>
               </a-form-item>
