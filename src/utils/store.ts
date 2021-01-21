@@ -1,4 +1,5 @@
-import { useStore, Store as VuexStore } from 'vuex'
+import { Store as VuexStore } from 'vuex'
+import store from '@/store'
 
 class Store {
   private store!: VuexStore<any>
@@ -6,17 +7,16 @@ class Store {
 
   constructor(namespace = '') {
     this.namespace = namespace
-    this.store = useStore()
   }
 
   getters(value: string) {
     const gettersValue = this.getValue(value)
-    return this.store.getters[gettersValue]
+    return store.getters[gettersValue]
   }
 
   dispatch(value: string, data?: any) {
     const dispathValue = this.getValue(value)
-    return this.store.dispatch(dispathValue, data)
+    return store.dispatch(dispathValue, data)
   }
 
   getValue(value: string) {

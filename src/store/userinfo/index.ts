@@ -1,6 +1,7 @@
 import {
   setToken as setTokenCookie,
-  removeToken as removeTokenCookie
+  removeToken as removeTokenCookie,
+  getToken as getTokenCookie
 } from '@/utils/cookies'
 import { Module } from 'vuex'
 
@@ -11,7 +12,7 @@ const module: Module<any, unknown> = {
     username: '',
     truename: '',
     avatar: '',
-    roles: []
+    roles: ['admin']
   }),
   mutations: {
     // 设置 token
@@ -28,7 +29,8 @@ const module: Module<any, unknown> = {
     }
   },
   getters: {
-    token: state => state.token,
+    token: () => getTokenCookie(),
+    roles: state => state.roles,
     username: state => (state.truename ? state.truename : state.username),
     userinfo: state => state
   },
