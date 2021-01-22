@@ -26,7 +26,7 @@
 
 "@ant-design/icons-vue@^5.1.9":
   version "5.1.9"
-  resolved "https://registry.npm.taobao.org/@ant-design/icons-vue/download/@ant-design/icons-vue-5.1.9.tgz?cache=0&sync_timestamp=1610022711056&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Ficons-vue%2Fdownload%2F%40ant-design%2Ficons-vue-5.1.9.tgz#8d741a3290be61af7c71618c308cc1a946c4e434"
+  resolved "https://registry.npm.taobao.org/@ant-design/icons-vue/download/@ant-design/icons-vue-5.1.9.tgz?cache=0&sync_timestamp=1610022634452&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Ficons-vue%2Fdownload%2F%40ant-design%2Ficons-vue-5.1.9.tgz#8d741a3290be61af7c71618c308cc1a946c4e434"
   integrity sha1-jXQaMpC+Ya98cWGMMIzBqUbE5DQ=
   dependencies:
     "@ant-design/colors" "^5.0.0"

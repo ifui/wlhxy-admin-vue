@@ -6,13 +6,17 @@ declare interface RouterMeta {
     title?: string
     roles?: string[]
     nologin?: boolean
+    icon?: string
+    noCache?: boolean
   }
+  hidden?: boolean
+  children?: Routes[]
 }
 
 // 路由表类型
-type Routes = RouteRecordRaw & RouterMeta
+type Routes = RouterMeta & RouteRecordRaw
 
 // 路由 RouteLocationNormalized：to 类型作 交叉点类型 交集
-type RouteLocation = RouteLocationNormalized & RouterMeta
+type RouteLocation = RouterMeta & RouteLocationNormalized
 
 export { RouteLocation, RouterMeta, Routes }

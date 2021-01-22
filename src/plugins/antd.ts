@@ -7,7 +7,9 @@ import {
   Table,
   Input,
   Form,
-  Checkbox
+  Checkbox,
+  Menu,
+  Icon
 } from 'ant-design-vue'
 
 app.use(Button)
@@ -18,6 +20,8 @@ app.use(Table)
 app.use(Input)
 app.use(Form)
 app.use(Checkbox)
+app.use(Menu)
+app.use(Icon)
 
 // {
 //   message,
