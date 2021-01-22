@@ -9,7 +9,7 @@ import {
   getLoginUsername,
   removeLoginUsername
 } from '@/utils/cookies'
-import { useRouter } from 'vue-router'
+import router from '@/router'
 
 // login 请求返回类型
 interface LoginResponse {
@@ -62,7 +62,6 @@ export default defineComponent({
         store.dispatch('SetUserInfo', res.data)
         const username = store.getters('username')
         Toast.success(`登录成功，欢迎 ${username}`)
-        const router = useRouter()
         router.push({ name: 'Dashboard' })
       })
 
