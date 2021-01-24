@@ -1,13 +1,11 @@
 import { defineComponent, ref, PropType } from 'vue'
+import { Routes } from '@/types'
 import classes from '../style.module.less'
 import router from '@/router'
-import { Routes } from '@/types'
-import {} from 'vue-router'
 
 // 生成菜单节点
 function createMenuItem(route: Routes) {
   if (!route.meta) return []
-
   return (
     <>
       <a-menu-item key={route.name}>
@@ -68,8 +66,7 @@ function createDom(route: Routes) {
   return view
 }
 
-// parseRoute
-
+// Parse Route
 function parseRoute() {
   const view: JSX.Element[] = []
   // 获取已挂载路由
@@ -103,7 +100,7 @@ export default defineComponent({
           theme={props.theme}
           collapsible
         >
-          <div class={classes.logo}>LOGO</div>
+          <div class={classes.logo}>WLHXY</div>
           <a-menu
             theme={props.theme}
             mode="inline"

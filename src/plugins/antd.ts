@@ -9,7 +9,10 @@ import {
   Form,
   Checkbox,
   Menu,
-  Icon
+  Icon,
+  Popconfirm,
+  Modal,
+  InputNumber
 } from 'ant-design-vue'
 
 app.use(Button)
@@ -22,6 +25,9 @@ app.use(Form)
 app.use(Checkbox)
 app.use(Menu)
 app.use(Icon)
+app.use(Popconfirm)
+app.use(Modal)
+app.use(InputNumber)
 
 // {
 //   message,

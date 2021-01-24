@@ -24,8 +24,8 @@ class Api {
     return request.put(this.url + '/' + id, data)
   }
 
-  delete(id: number) {
-    return request.delete(this.url + '/' + id)
+  delete(id: number, data?: any) {
+    return request.delete(this.url + '/' + id, { data })
   }
 }
 

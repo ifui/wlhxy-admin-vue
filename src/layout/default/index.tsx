@@ -15,7 +15,7 @@ export default defineComponent({
           <Sider theme={theme.value} />
           <a-layout>
             <Header theme={theme.value} />
-            <a-layout-content>
+            <a-layout-content class={classes.layoutContent}>
               <router-view></router-view>
             </a-layout-content>
           </a-layout>

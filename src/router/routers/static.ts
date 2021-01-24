@@ -37,6 +37,22 @@ const routes: Array<Routes> = [
     ]
   },
   {
+    path: '/grade',
+    redirect: '/grade/index',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Grade',
+        component: () => import('@/views/grade/index'),
+        meta: {
+          title: '年级管理',
+          icon: 'iconfont icon-nianji'
+        }
+      }
+    ]
+  },
+  {
     path: '/404',
     component: () => import('@/views/error/404'),
     meta: {
