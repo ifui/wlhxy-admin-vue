@@ -24,8 +24,8 @@ const tableColumns = [
   }
 ]
 
-const tableRules = {
+const formRules = {
   name: [{ required: true, message: '请输入年级名称', trigger: 'blur' }]
 }
 
-export { tableColumns, tableRules }
+export { tableColumns, formRules }

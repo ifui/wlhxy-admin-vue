@@ -53,6 +53,22 @@ const routes: Array<Routes> = [
     ]
   },
   {
+    path: '/course',
+    redirect: '/course/index',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Course',
+        component: () => import('@/views/course/index'),
+        meta: {
+          title: '课程管理',
+          icon: 'iconfont icon-kechengguanli'
+        }
+      }
+    ]
+  },
+  {
     path: '/404',
     component: () => import('@/views/error/404'),
     meta: {

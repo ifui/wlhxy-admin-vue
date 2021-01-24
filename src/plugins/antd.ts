@@ -12,7 +12,10 @@ import {
   Icon,
   Popconfirm,
   Modal,
-  InputNumber
+  InputNumber,
+  DatePicker,
+  ConfigProvider,
+  Select
 } from 'ant-design-vue'
 
 app.use(Button)
@@ -28,6 +31,9 @@ app.use(Icon)
 app.use(Popconfirm)
 app.use(Modal)
 app.use(InputNumber)
+app.use(DatePicker)
+app.use(ConfigProvider)
+app.use(Select)
 
 // {
 //   message,

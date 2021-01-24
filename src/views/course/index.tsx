@@ -1,7 +1,8 @@
 import { defineComponent, ref } from 'vue'
 import { tableColumns, formRules } from './tableConfig'
 import { useToast } from 'vue-toastification'
-import request from '@/api/grade'
+import request from '@/api/course'
+import gradeRequest from '@/api/grade'
 
 const toast = useToast()
 
@@ -14,9 +15,11 @@ export default defineComponent({
     const tableLoading = ref(true)
     const initForm = {
       id: 0,
-      name: '',
-      remark: '',
-      order: 0
+      title: '',
+      intro: '',
+      price: 0,
+      grade_id: undefined,
+      create_time: null
     }
     // 模态框数据
     const form = ref(initForm)
@@ -27,10 +30,13 @@ export default defineComponent({
     const modalVisible = ref(false)
     const modalLoading = ref(false)
 
+    // 年级选择器数据
+    const gradeSelectValues = ref([])
+
     // 编辑
-    function handleEdit(record: typeof form.value) {
+    function handleEdit(text: any) {
       modalTitle.value = '编辑'
-      form.value = record
+      form.value = JSON.parse(JSON.stringify(text))
       modalVisible.value = true
     }
 
@@ -56,13 +62,13 @@ export default defineComponent({
     }
 
     const slots = {
-      action: (event: { record: any }) => {
+      action: (event: { text: typeof form.value }) => {
         return (
           <>
             <a-button
               class="mr-2"
               type="primary"
-              onClick={() => handleEdit(event.record)}
+              onClick={() => handleEdit(event.text)}
               ghost
             >
               <i class="iconfont icon-edit mr-2"></i>
@@ -70,7 +76,7 @@ export default defineComponent({
             </a-button>
 
             <a-popconfirm
-              title="确定删除该年级？"
+              title="确定删除该课程？"
               okText="确定"
               cancelText="取消"
               onConfirm={() => handleDelete(event)}
@@ -82,6 +88,9 @@ export default defineComponent({
             </a-popconfirm>
           </>
         )
+      },
+      price: (event: { text: string }) => {
+        return <span>¥ {event.text}</span>
       }
     }
 
@@ -136,8 +145,18 @@ export default defineComponent({
       modalTitle.value === '编辑' && putData(form.value)
     }
 
+    // 选择器获得焦点
+    function handleFocus() {
+      if (Object.keys(gradeSelectValues.value).length === 0) {
+        gradeRequest.get().then(res => {
+          gradeSelectValues.value = res.data.data
+        })
+      }
+    }
+
     // 向服务器发起请求
     fetchData()
+    handleFocus()
 
     return () => {
       return (
@@ -145,7 +164,7 @@ export default defineComponent({
           <div class="text-right">
             <a-button onClick={handleAdd} class="mb-4" type="primary" ghost>
               <i class="iconfont icon-plus mr-2"></i>
-              添加年级
+              添加课程
             </a-button>
           </div>
           <a-table
@@ -154,7 +173,7 @@ export default defineComponent({
             data-source={data.value}
             rowKey="id"
             v-slots={slots}
-            pagination={false}
+            x
           ></a-table>
 
           <a-modal
@@ -171,16 +190,37 @@ export default defineComponent({
               model={form.value}
               rules={formRules}
             >
-              <a-form-item label="名称" name="name">
-                <a-input v-model={[form.value.name, 'value']}></a-input>
+              <a-form-item label="年级" name="grade_id">
+                <a-select
+                  v-model={[form.value.grade_id, 'value']}
+                  placeholder="请选择课程所属年级"
+                >
+                  {gradeSelectValues.value.map((item: any) => {
+                    return (
+                      <a-select-option value={item.id}>
+                        {item.name}
+                      </a-select-option>
+                    )
+                  })}
+                </a-select>
               </a-form-item>
-              <a-form-item label="备注" name="remark">
-                <a-input v-model={[form.value.remark, 'value']}></a-input>
+              <a-form-item label="课程名" name="title">
+                <a-input v-model={[form.value.title, 'value']}></a-input>
               </a-form-item>
-              <a-form-item label="排序" name="order">
+              <a-form-item label="简介" name="intro">
+                <a-textarea v-model={[form.value.intro, 'value']}></a-textarea>
+              </a-form-item>
+              <a-form-item label="创建时间" name="create_time">
+                <a-date-picker
+                  v-model={[form.value.create_time, 'value']}
+                  showTime
+                ></a-date-picker>
+              </a-form-item>
+              <a-form-item label="价格" name="price">
                 <a-input-number
-                  v-model={[form.value.order, 'value']}
-                  type="number"
+                  v-model={[form.value.price, 'value']}
+                  formatter={(value: any) => '¥' + value}
+                  style="width: 130px"
                 ></a-input-number>
               </a-form-item>
             </a-form>
