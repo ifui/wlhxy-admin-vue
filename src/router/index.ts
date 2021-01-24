@@ -4,10 +4,15 @@ import { RouteLocation } from '@/types'
 import { useToast } from 'vue-toastification'
 import staticRoutees from './routers/static'
 import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: staticRoutees
+})
+
+NProgress.configure({
+  showSpinner: false
 })
 
 router.beforeEach((to: RouteLocation, from, next) => {
